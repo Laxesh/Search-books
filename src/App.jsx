@@ -92,13 +92,19 @@ function App() {
                 <tbody className="max-h-72 overflow-y-auto block">
                   {books.map((book, index) => (
                     <tr key={index}>
-                      <td className="py-2 px-4 border-b w-[30%] break-words">{book.title}</td>
-                      <td className="py-2 px-4 border-b w-[20%] break-words">
+                      <td className="py-2 px-4 border-b w-[30%] break-words text-left">{book.title}</td>
+                      <td className="py-2 px-4 border-b w-[20%] break-words text-left">
                         {book.author_name ? book.author_name.join(", ") : "N/A"}
                       </td>
-                      <td className="py-2 px-4 border-b w-[15%] break-words">{book.first_publish_year || "N/A"}</td>
-                      <td className="py-2 px-4 border-b w-[20%] break-words">{book.isbn ? book.isbn[0] : "N/A"}</td>
-                      <td className="py-2 px-4 border-b w-[15%] break-words">{book.number_of_pages_median || "N/A"}</td>
+                      <td className="py-2 px-4 border-b w-[15%] break-words text-left">
+                        {book.first_publish_year || "N/A"}
+                      </td>
+                      <td className="py-2 px-4 border-b w-[20%] break-words text-left">
+                        {book.isbn ? book.isbn[0] : "N/A"}
+                      </td>
+                      <td className="py-2 px-4 border-b w-[15%] break-words text-left">
+                        {book.number_of_pages_median || "N/A"}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
