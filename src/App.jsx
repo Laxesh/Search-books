@@ -31,7 +31,7 @@ function App() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center p-24">
+      <main className="flex min-h-screen flex-col items-center p-16">
         <div className="flex items-center border rounded-md overflow-hidden">
           <input
             className="px-4 py-2 w-full focus:outline-none bg-white"
@@ -68,7 +68,7 @@ function App() {
         <div className="">
           {loading ? <p>Loading.....</p> : <div></div>}
           {tableData ? (
-            <div className="container mx-auto mt-8 bg-white">
+            <div className="container mx-auto mt-7 bg-white">
               <table className="min-w-full bg-white border border-gray-200 max-w-[1250px]">
                 <thead className="block">
                   <tr>
