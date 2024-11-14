@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import close from "/src/icon/icons8-close.svg";
 import up from "./icon/arrow-small-up.png";
@@ -8,6 +8,14 @@ function App() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [tableData, setTableData] = useState(false);
+
+  const [currentPage, setCureentPage] = useState(1);
+  const recordsPage = 10;
+  const lastIndex = currentPage * recordsPage;
+  const firstIndex = lastIndex - recordsPage;
+  const record = books.slice(firstIndex, lastIndex);
+  const numOfPage = Math.ceil(books.length / recordsPage);
+  const num = [...Array(numOfPage + 1).keys()].slice(1);
 
   async function fatchApi(bookName) {
     setLoading(true);
@@ -39,6 +47,21 @@ function App() {
   const sortBooksBydYear = () => {
     const sortedBooks = [...books].sort((a, b) => b.first_publish_year - a.first_publish_year);
     setBooks(sortedBooks);
+  };
+
+  const nextPage = () => {
+    if (currentPage !== firstIndex) {
+      setCureentPage(() => Math.max(currentPage - 1), 1);
+    }
+  };
+
+  const curPage = (id) => {
+    setCureentPage(id);
+    console.log(id);
+  };
+
+  const prevPage = () => {
+    setCureentPage(() => Math.min(currentPage - 1), lastIndex);
   };
 
   return (
@@ -75,7 +98,7 @@ function App() {
           {loading ? <p>Loading.....</p> : <div></div>}
           {tableData ? (
             <div className="container mx-auto mt-7 bg-white">
-              <table className="min-w-full bg-white border border-gray-200 max-w-[1250px]">
+              <table className="min-w-[1250px] bg-white border border-gray-200 ">
                 <thead className="block">
                   <tr>
                     <th className="py-2 px-4 border-b w-[30%] text-left">Title</th>
@@ -95,8 +118,8 @@ function App() {
                     <th className="py-2 border-b w-[15%] text-left ml-1">Number of Pages</th>
                   </tr>
                 </thead>
-                <tbody className="max-h-72 overflow-y-auto block">
-                  {books.map((book, index) => (
+                <tbody className="max-h-full overflow-y-hidden block ">
+                  {record.map((book, index) => (
                     <tr key={index}>
                       <td className="py-2 px-4 border-b w-[30%] break-words text-left">{book.title}</td>
                       <td className="py-2 px-4 border-b w-[20%] break-words text-left">
@@ -119,6 +142,23 @@ function App() {
           ) : (
             <div></div>
           )}
+        </div>
+        <div>
+          <ul className="flex gap-4">
+            <li>
+              <button onClick={prevPage} disabled={currentPage == firstIndex}>
+                Prev
+              </button>
+            </li>
+            {num.map((n, i) => (
+              <li key={i}>
+                <button onClick={() => curPage(n)}>{n}</button>
+              </li>
+            ))}
+            <li>
+              <button onClick={nextPage}>Next</button>
+            </li>
+          </ul>
         </div>
       </main>
     </>
