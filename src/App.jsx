@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import close from "/src/icon/icons8-close.svg";
-
+import up from "./icon/arrow-small-up.png";
+import down from "./icon/arrow-small-down.png";
 function App() {
   const [bookName, setBookName] = useState("");
   const [books, setBooks] = useState([]);
@@ -13,6 +14,7 @@ function App() {
     try {
       const api = await fetch(`https://openlibrary.org/search.json?q=${bookName}`);
       const data = await api.json();
+      console.log(data.docs);
       if (data.docs == "") {
         setBooks([]);
         setLoading(false);
@@ -57,6 +59,7 @@ function App() {
               }
             }}
           />
+
           <button className="bg-gray-300 text-gray-700 px-4 py-2" onClick={clickme}>
             <img src={close} alt="" className="w-6 h-6 bg-transparent" />
           </button>
@@ -67,14 +70,7 @@ function App() {
             <p>Enter a search term to find books.</p>
           </div>
         </div>
-        <div className="my-1">
-          <button className="bg-gray-300  text-black px-4 py-2 rounded-md mt-1" onClick={sortBooksByaYear}>
-            Sort Ascending By Publish Year
-          </button>
-          <button className="bg-gray-300  text-black px-4 py-2 rounded-md m-1" onClick={sortBooksBydYear}>
-            Sort Descending By Publish Year
-          </button>
-        </div>
+
         <div className="">
           {loading ? <p>Loading.....</p> : <div></div>}
           {tableData ? (
@@ -84,7 +80,17 @@ function App() {
                   <tr>
                     <th className="py-2 px-4 border-b w-[30%] text-left">Title</th>
                     <th className="py-2 px-4 border-b w-[20%] text-left">Author(s)</th>
-                    <th className="py-2 px-4 border-b w-[15%] text-left">Year First Published</th>
+                    <th className="py-2 px-4 border-b w-[15%] text-left">
+                      Year First Published
+                      <div className="flex justify-center gap-2">
+                        <button className="h-4 w-4" onClick={sortBooksByaYear}>
+                          <img src={up} alt="a" />
+                        </button>
+                        <button className="h-4 w-4">
+                          <img src={down} alt="" onClick={sortBooksBydYear} />
+                        </button>
+                      </div>
+                    </th>
                     <th className="py-2 px-4 border-b w-[20%] text-left">ISBN</th>
                     <th className="py-2 border-b w-[15%] text-left ml-1">Number of Pages</th>
                   </tr>
