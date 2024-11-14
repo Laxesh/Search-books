@@ -10,17 +10,20 @@ function App() {
 
   async function fatchApi(bookName) {
     setLoading(true);
-    const api = await fetch(`https://openlibrary.org/search.json?q=${bookName}`);
-    const data = await api.json();
-    console.log(data.docs);
-    if (data.docs == "") {
-      setBooks([]);
-      setLoading(false);
-      setTableData(false);
-    } else {
-      setBooks(data.docs);
-      setLoading(false);
-      setTableData(true);
+    try {
+      const api = await fetch(`https://openlibrary.org/search.json?q=${bookName}`);
+      const data = await api.json();
+      if (data.docs == "") {
+        setBooks([]);
+        setLoading(false);
+        setTableData(false);
+      } else {
+        setBooks(data.docs);
+        setLoading(false);
+        setTableData(true);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
