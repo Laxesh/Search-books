@@ -31,11 +31,11 @@ function App() {
     setBookName(" ");
   };
   const sortBooksByaYear = () => {
-    const sortedBooks = [...books].sort((a, b) => (a.first_publish_year || 0) - (b.first_publish_year || 0));
+    const sortedBooks = [...books].sort((a, b) => a.first_publish_year - b.first_publish_year);
     setBooks(sortedBooks);
   };
   const sortBooksBydYear = () => {
-    const sortedBooks = [...books].sort((a, b) => (b.first_publish_year || 0) - (a.first_publish_year || 0));
+    const sortedBooks = [...books].sort((a, b) => b.first_publish_year - a.first_publish_year);
     setBooks(sortedBooks);
   };
 
