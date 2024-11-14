@@ -12,9 +12,16 @@ function App() {
     setLoading(true);
     const api = await fetch(`https://openlibrary.org/search.json?q=${bookName}`);
     const data = await api.json();
-    setBooks(data.docs);
-    setLoading(false);
-    setTableData(true);
+    console.log(data.docs);
+    if (data.docs == "") {
+      setBooks([]);
+      setLoading(false);
+      setTableData(false);
+    } else {
+      setBooks(data.docs);
+      setLoading(false);
+      setTableData(true);
+    }
   }
 
   const clickme = () => {
