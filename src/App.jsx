@@ -22,7 +22,7 @@ function App() {
     try {
       const api = await fetch(`https://openlibrary.org/search.json?q=${bookName}`);
       const data = await api.json();
-      console.log(data.docs);
+      // console.log(data.docs);
       if (data.docs == "") {
         setBooks([]);
         setLoading(false);
@@ -148,7 +148,7 @@ function App() {
             <div></div>
           )}
         </div>
-        <div>
+        <div className={`transition-opacity ${books == [] ? "opacity-100" : "hidden pointer-events-none"}`}>
           <ul className="flex gap-4">
             <li>
               <button onClick={prevPage} disabled={currentPage == firstIndex}>
