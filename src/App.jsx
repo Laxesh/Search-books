@@ -83,7 +83,12 @@ function App() {
             }}
           />
 
-          <button className="bg-gray-300 text-gray-700 px-4 py-2" onClick={clickme}>
+          <button
+            className={`bg-gray-300 text-gray-700 px-4 py-2 transition-opacity ${
+              bookName.trim() ? "opacity-100" : "hidden pointer-events-none"
+            }`}
+            onClick={clickme}
+          >
             <img src={close} alt="" className="w-6 h-6 bg-transparent" />
           </button>
         </div>
