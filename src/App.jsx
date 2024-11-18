@@ -57,7 +57,6 @@ function App() {
 
   const curPage = (id) => {
     setCureentPage(id);
-    console.log(id);
   };
 
   const prevPage = () => {
