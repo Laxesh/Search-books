@@ -12,7 +12,7 @@ function App() {
   const [currentPage, setCureentPage] = useState(1);
   const recordsPage = 10;
   const lastIndex = currentPage * recordsPage;
-  const firstIndex = lastIndex - recordsPage;
+  const firstIndex = lastIndex - recordsPage + 1;
   const record = books.slice(firstIndex, lastIndex);
   const numOfPage = Math.ceil(books.length / recordsPage);
   const num = [...Array(numOfPage + 1).keys()].slice(1);
@@ -50,8 +50,8 @@ function App() {
   };
 
   const nextPage = () => {
-    if (currentPage !== firstIndex) {
-      setCureentPage(() => Math.max(currentPage - 1), 1);
+    if (currentPage !== numOfPage) {
+      setCureentPage(() => Math.max(currentPage + 1), 1);
     }
   };
 
@@ -60,7 +60,9 @@ function App() {
   };
 
   const prevPage = () => {
-    setCureentPage(() => Math.min(currentPage - 1), lastIndex);
+    if (currentPage !== firstIndex) {
+      setCureentPage(() => Math.min(currentPage - 1), lastIndex);
+    }
   };
 
   return (
@@ -147,20 +149,27 @@ function App() {
             <div></div>
           )}
         </div>
-        <div className={`transition-opacity ${books == [] ? "opacity-100" : "hidden pointer-events-none"}`}>
+        <div className={`transition-opacity ${tableData == true ? "opacity-100" : "hidden pointer-events-none"}`}>
           <ul className="flex gap-4">
             <li>
-              <button onClick={prevPage} disabled={currentPage == firstIndex}>
+              <button onClick={prevPage} disabled={currentPage == firstIndex} className={`h-10 w-10 bg-gray-300 m-2`}>
                 Prev
               </button>
             </li>
             {num.map((n, i) => (
               <li key={i}>
-                <button onClick={() => curPage(n)}>{n}</button>
+                <button
+                  onClick={() => curPage(n)}
+                  className={`h-10 w-10 m-2 ${currentPage === i + 1 ? "bg-slate-700 text-white" : " bg-gray-300"}`}
+                >
+                  {n}
+                </button>
               </li>
             ))}
             <li>
-              <button onClick={nextPage}>Next</button>
+              <button onClick={nextPage} disabled={numOfPage == currentPage} className={` h-10 w-10  bg-gray-300 m-2 `}>
+                Next
+              </button>
             </li>
           </ul>
         </div>
